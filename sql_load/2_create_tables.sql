@@ -1,4 +1,4 @@
--- Create company_dim table with primary key
+-- Creation de company_dim avec clée primaire
 CREATE TABLE public.company_dim
 (
     company_id INT PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE public.company_dim
     thumbnail TEXT
 );
 
--- Create skills_dim table with primary key
+-- Création skills_dim avec clée primaire
 CREATE TABLE public.skills_dim
 (
     skill_id INT PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE public.skills_dim
     type TEXT
 );
 
--- Create job_postings_fact table with primary key
+-- Création job_postings_fact avec clée primaire
 CREATE TABLE public.job_postings_fact
 (
     job_id INT PRIMARY KEY,
@@ -38,7 +38,7 @@ CREATE TABLE public.job_postings_fact
     FOREIGN KEY (company_id) REFERENCES public.company_dim (company_id)
 );
 
--- Create skills_job_dim table with a composite primary key and foreign keys
+-- Création de skills_job_dim table avec une clée primaire et une clée étrangère
 CREATE TABLE public.skills_job_dim
 (
     job_id INT,
@@ -48,13 +48,13 @@ CREATE TABLE public.skills_job_dim
     FOREIGN KEY (skill_id) REFERENCES public.skills_dim (skill_id)
 );
 
--- Set ownership of the tables to the postgres user
+
 ALTER TABLE public.company_dim OWNER to postgres;
 ALTER TABLE public.skills_dim OWNER to postgres;
 ALTER TABLE public.job_postings_fact OWNER to postgres;
 ALTER TABLE public.skills_job_dim OWNER to postgres;
 
--- Create indexes on foreign key columns for better performance
+-- Création des index
 CREATE INDEX idx_company_id ON public.job_postings_fact (company_id);
 CREATE INDEX idx_skill_id ON public.skills_job_dim (skill_id);
 CREATE INDEX idx_job_id ON public.skills_job_dim (job_id);
