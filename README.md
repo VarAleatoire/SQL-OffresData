@@ -64,9 +64,9 @@ La requête effectue une jointure (LEFT JOIN) entre la table job_postings_fact e
 Après sauvegarde de la base de données de sortie, on sert de PowerBI pour visualiser les top 5 entreprises rénumérant le plus.
 
 
+<img width="1488" height="795" alt="Screenshot 2026-02-03 at 10 53 26" src="https://github.com/user-attachments/assets/1ad11d9e-87c1-43ef-9de3-71b084e8bacf" />
 
-![<img width="1559" height="884" alt="1" src="https://github.com/user-attachments/assets/84b4b1ad-97ab-4201-814d-1744dcb8d335" />
-]
+
 
 
 ### Quelles sont compétences démandées pour ces postes
@@ -110,6 +110,7 @@ ON sk.skill_id = sj.skill_id
 
 ;
 ```
+<img width="892" height="508" alt="Screenshot 2026-02-03 at 10 54 09" src="https://github.com/user-attachments/assets/7f83529f-72a3-4f58-9a12-61ee190a27a5" />
 
 
 ### Quelles sont les compétences les PLUS demandées?
@@ -139,7 +140,7 @@ ORDER BY demande DESC;
 
 La visualisation par PowerBI nous permet d'afficher la pie chart suivantes : 
 
-INSERT HERE
+<img width="467" height="426" alt="Screenshot 2026-02-03 at 10 54 55" src="https://github.com/user-attachments/assets/31f999fe-94d0-4266-8a87-e46acd6c4c67" />
 
 
 Donc, SQL/Excel/Python/Tableau/PowerBI sont les plus exigées !
@@ -174,6 +175,11 @@ ORDER BY SALAIRE_ANNUEL DESC
 
 ;
 ```
+
+
+<img width="423" height="413" alt="Screenshot 2026-02-03 at 10 55 23" src="https://github.com/user-attachments/assets/21c66200-588d-4fa9-8bae-093129f15e80" />
+
+
 
 
 
