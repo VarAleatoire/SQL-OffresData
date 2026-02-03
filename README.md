@@ -65,7 +65,9 @@ Après sauvegarde de la base de données de sortie, on sert de PowerBI pour visu
 
 
 
-INSERT FIRST PIC HERE.
+![<img width="1559" height="884" alt="1" src="https://github.com/user-attachments/assets/84b4b1ad-97ab-4201-814d-1744dcb8d335" />
+]
+
 
 ### Quelles sont compétences démandées pour ces postes
 
