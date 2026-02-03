@@ -8,15 +8,15 @@ Ce projet vise à explorer le marché de l'emploi Data Analyst à partir des don
 
 L’objectif est de répondre aux questions : 
 
-    1- Quels sont les postes Data Analyst les mieux payés,
+    1- Quels sont les postes Data Analyst les mieux payés.
 
-    2- Quelles sont compétences demandées pour ces postes,
+    2- Quelles sont compétences demandées pour ces postes.
 
-    3- Quelles sont les compétences les PLUS demandées,
+    3- Quelles sont les compétences les PLUS demandées.
 
-    4- Quelles sontles compétences les mieux remunérées.
+    4- Quelles sont les compétences les mieux remunérées.
 
-    5- Quelles sontles compétences optimales combinant demande et salaire.
+    5- Quelles sont les compétences optimales combinant demande et salaire.
 
 
 Remarque : L'analyse cible les postes Data Analyste en Remote !
@@ -25,18 +25,18 @@ Remarque : L'analyse cible les postes Data Analyste en Remote !
 # Structure de projet :
 
 ```pgsql
-projet_sql/
-│
-├── 1_emplois_mieux_payes.sql
-├── 2_competences_demplois.sql
-├── 3_competences_plus_demandees.sql
-├── 4_competences_mieux_payees.sql
-├── 5_competences_optimales.sql
-│
-└── sql_load/
-    ├── 1_create_database.sql
-    ├── 2_create_tables.sql
-    └── 3_modify_tables.sql
+    projet_sql/
+    │
+    ├── 1_emplois_mieux_payes.sql
+    ├── 2_competences_demplois.sql
+    ├── 3_competences_plus_demandees.sql
+    ├── 4_competences_mieux_payees.sql
+    ├── 5_competences_optimales.sql
+    │
+    └── sql_load/
+        ├── 1_create_database.sql
+        ├── 2_create_tables.sql
+        └── 3_modify_tables.sql
 ```
 
 # Outils utilisés :
@@ -47,7 +47,7 @@ PostgreSQL / VS Code / Power BI (Visualisations)
 
 Il convient de noter que la modalité 'Anywhere' pour la variable job_location de la table job_postings_fact indique que le poste concerné est en Remote.
 
-### Quels sont les postes Data Analyst les mieux payés
+### Quels sont les postes Data Analyst les mieux rénumérés
 
 
 ```sql
@@ -63,6 +63,9 @@ La requête effectue une jointure (LEFT JOIN) entre la table job_postings_fact e
 
 Après sauvegarde de la base de données de sortie, on sert de PowerBI pour visualiser les top 5 entreprises rénumérant le plus.
 
+
+
+INSERT FIRST PIC HERE.
 
 ### Quelles sont compétences démandées pour ces postes
 
@@ -107,7 +110,7 @@ ON sk.skill_id = sj.skill_id
 ```
 
 
-### Quelles sont les compétences les PLUS demandées,
+### Quelles sont les compétences les PLUS demandées?
 
 Il faut d'abord comprendre que la différence entre cette question et celle d'avant, est que, on essaye de tirer les compétences les plus demandées au lieux de lister toutes les compétences qu'apparaissent pour chaque offre. De cela, on utilise une aggregation (COUNT) et on regroupe par compétence (GROUP BY s.skills)
 
@@ -138,3 +141,64 @@ INSERT HERE
 
 
 Donc, SQL/Excel/Python/Tableau/PowerBI sont les plus exigées !
+
+### Quelles sont les compétences les mieux rémunérées?
+
+
+
+
+```sql
+SELECT 
+
+    AVG(j.salary_year_avg)::NUMERIC(6,0) AS SALAIRE_ANNUEL, 
+    s.skills AS Competences
+
+
+
+FROM job_postings_fact as j
+
+
+INNER JOIN skills_job_dim as sk ON j.job_id = sk.job_id
+
+INNER JOIN skills_dim as s ON sk.skill_id = s.skill_id
+
+
+WHERE j.salary_year_avg IS NOT NULL AND j.job_title_short = 'Data Analyst' AND j.job_location = 'Anywhere'
+
+
+GROUP BY competences
+
+ORDER BY SALAIRE_ANNUEL DESC
+
+;
+```
+
+
+
+### Quelles sont les compétences optimales ?
+
+
+````sql
+
+SELECT 
+        AVG(j.salary_year_avg)::NUMERIC(6,0) AS SALAIRE_ANNUEL, 
+        s.skills AS Competences,
+        COUNT(sk.job_id) as demande
+
+FROM job_postings_fact as j
+
+
+
+INNER JOIN skills_job_dim as sk ON j.job_id = sk.job_id
+
+INNER JOIN skills_dim as s ON sk.skill_id = s.skill_id
+
+WHERE  j.salary_year_avg IS NOT NULL AND j.job_title_short = 'Data Analyst' AND j.job_location = 'Anywhere' 
+
+
+GROUP BY s.skills
+
+HAVING  COUNT(sk.job_id) > 10
+
+ORDER BY SALAIRE_ANNUEL DESC, demande DESC;
+```
